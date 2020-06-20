@@ -7,9 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.magie.fragments.R;
+
+import static com.magie.fragments.R.color.colorAccent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,7 @@ import com.magie.fragments.R;
 public class ConversasFragment extends Fragment {
 
     private TextView textConversas;
+    private Button buttonActivate;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,10 +68,27 @@ public class ConversasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_conversas, container, false);
         textConversas = view.findViewById(R.id.textConversas);
-        textConversas.setText("Testando!");
+        //textConversas.setText("Testando!");
+
+        buttonActivate = view.findViewById(R.id.buttonActivate);
+        buttonActivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar pressionado = Snackbar.make(view, "Pressionado", Snackbar.LENGTH_INDEFINITE);
+                pressionado.setAction("ACCEPT", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonActivate.setText("Snackbar Closed?");
+                    }
+                });
+                pressionado.setActionTextColor(getResources().getColor(colorAccent));
+                pressionado.show();
+            }
+        });
         return view;
     }
 }
